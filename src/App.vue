@@ -41,7 +41,10 @@ export default {
     },
     listTwo() {
       return this.items.filter(item => item.column === 2)
-    }
+    },
+    listThree() {
+      return this.items.filter(item => item.column === 3)
+    },
   }
 }
 
@@ -49,8 +52,8 @@ export default {
 
 <template>
   <div class="grid grid-cols-3 h-full">
-    <RetroColumn heading="Happy" :items=listOne class="bg-green-200" />
-    <RetroColumn heading="Meh / Wondering" :items=listTwo class="bg-yellow-200" />
-    <RetroColumn heading="Sad" class="bg-red-200" />
+    <RetroColumn heading="Happy" :items=listOne color="green" />
+    <RetroColumn heading="Meh / Wondering" :items=listTwo color="yellow" />
+    <RetroColumn heading="Sad" :items=listThree color="red" />
   </div>
 </template>

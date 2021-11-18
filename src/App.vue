@@ -34,7 +34,15 @@ export default {
       ]
     }
   },
-
+  methods: {
+      addItem (title, column) {
+        this.items.push({
+          title: title,
+          id: this.items.length + 1,
+          column: column,
+        })
+      },
+  },
   computed: {
     listOne() {
       return this.items.filter(item => item.column === 1)
@@ -52,8 +60,8 @@ export default {
 
 <template>
   <div class="grid grid-cols-3 h-full">
-    <RetroColumn heading="Happy" :items=listOne color="green" />
-    <RetroColumn heading="Meh / Wondering" :items=listTwo color="yellow" />
-    <RetroColumn heading="Sad" :items=listThree color="red" />
+    <RetroColumn heading="Happy" :items=listOne color="green" v-bind:column=1 @submit-form="addItem" />
+    <RetroColumn heading="Meh / Wondering" :items=listTwo color="yellow" v-bind:column=2 @submit-form="addItem" />
+    <RetroColumn heading="Sad" :items=listThree color="red" v-bind:column=3 @submit-form="addItem" />
   </div>
 </template>

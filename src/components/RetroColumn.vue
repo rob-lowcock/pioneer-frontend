@@ -5,6 +5,7 @@ defineProps({
     items: Array,
     column: Number,
     method: Function,
+    hint: String,
 })
 
 import RetroCard from './RetroCard.vue';
@@ -32,18 +33,21 @@ export default {
     },
     computed: {
         headingColor () {
-            return "bg-"+this.color+"-200" || 'bg-white'
+            return "bg-"+this.color+"" || 'bg-white'
         },
+        borderColor() {
+            return "focus:border-"+this.color+"" || "focus:border-blue"
+        }
     },
 }
 </script>
 
 <template>
     <div class="drop-zone">
-        <h1 :class="headingColor" class="p-2 text-xl font-bold text-gray-700">{{heading}}</h1>
-        <form v-on:submit.prevent="onSubmit" @submit="submit($event)">
-            <input type="text" name="title" placeholder="Title">
-            <input type="submit" value="Add">
+        <h1 :class="headingColor" class="px-2 py-4 text-l font-bold text-white">{{heading}}</h1>
+        <form @submit="submit($event)">
+            <input type="text" name="title" :placeholder="hint" :class="borderColor" class="p-2 w-10/12">
+            <input type="submit" value="Add" class="w-2/12 p-2 bg-blue text-white">
         </form>
         <div v-for='item in items' :key='item.title' draggable="true" @dragstart="startDrag($event, item)" class="m-2 p-2 rounded-md shadow bg-white">
             <RetroCard :item='item' />

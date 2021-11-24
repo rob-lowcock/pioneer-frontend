@@ -60,8 +60,8 @@ export default {
 
 <template>
   <div class="grid grid-cols-3 h-full">
-    <RetroColumn heading="Happy" :items=listOne color="green" v-bind:column=1 @submit-form="addItem" />
-    <RetroColumn heading="Meh / Wondering" :items=listTwo color="yellow" v-bind:column=2 @submit-form="addItem" />
-    <RetroColumn heading="Sad" :items=listThree color="red" v-bind:column=3 @submit-form="addItem" />
+    <RetroColumn heading="Happy" :items=listOne color="green" hint="I'm glad that..." v-bind:column=1 @submit-form="addItem" />
+    <RetroColumn heading="Meh / Wondering" :items=listTwo color="yellow" hint="I'm wondering..." v-bind:column=2 @submit-form="addItem" />
+    <RetroColumn heading="Sad" :items=listThree color="red" hint="I'm sad that..." v-bind:column=3 @submit-form="addItem" />
   </div>
 </template>

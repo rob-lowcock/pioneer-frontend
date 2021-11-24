@@ -36,6 +36,10 @@ export default {
   },
   methods: {
       addItem (title, column) {
+        if (title.length == 0) {
+          return
+        }
+        
         this.items.push({
           title: title,
           id: this.items.length + 1,

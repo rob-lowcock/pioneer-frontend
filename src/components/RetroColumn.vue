@@ -44,12 +44,14 @@ export default {
 
 <template>
     <div class="drop-zone">
-        <h1 :class="headingColor" class="px-2 py-4 text-l font-bold text-white">{{heading}}</h1>
-        <form @submit="submit($event)">
-            <input type="text" name="title" :placeholder="hint" :class="borderColor" class="p-2 w-10/12">
-            <input type="submit" value="Add" class="w-2/12 p-2 bg-blue text-white">
+        <h1 class="p-2 text-l font-bold text-gray-600">{{heading}}</h1>
+        <form @submit="submit($event)" :class="headingColor" class="rounded-md m-2 p-2">
+            <div class="flex">
+            <input type="text" name="title" :placeholder="hint" :class="borderColor" class="flex-1 p-2 rounded-md">
+            <input type="submit" value="Add" class="ml-2 flex-none p-2 rounded-md bg-white text-gray-600 justify-self-end">
+            </div>
         </form>
-        <div v-for='item in items' :key='item.title' draggable="true" @dragstart="startDrag($event, item)" class="m-2 p-2 rounded-md shadow bg-white">
+        <div v-for='item in items' :key='item.title' draggable="true" @dragstart="startDrag($event, item)" class="m-2 p-2 border-gray-100 border-solid border shadow-md rounded-md bg-white">
             <RetroCard :item='item' />
         </div>
     </div>

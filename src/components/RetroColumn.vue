@@ -47,8 +47,8 @@ export default {
         <h1 class="p-2 text-l font-bold text-gray-600">{{heading}}</h1>
         <form @submit="submit($event)" :class="headingColor" class="rounded-md m-2 p-2">
             <div class="flex">
-            <input type="text" name="title" :placeholder="hint" :class="borderColor" class="flex-1 p-2 rounded-md">
-            <input type="submit" value="Add" class="ml-2 flex-none p-2 rounded-md bg-white text-gray-600 justify-self-end">
+            <input type="text" name="title" :placeholder="hint" :class="borderColor" class="flex-1 p-2 rounded-sm">
+            <input type="submit" value="Add" class="ml-2 flex-none p-2 rounded-sm bg-white text-gray-600 justify-self-end">
             </div>
         </form>
         <div v-for='item in items' :key='item.title' draggable="true" @dragstart="startDrag($event, item)" class="m-2 p-2 border-gray-100 border-solid border shadow-md rounded-md bg-white">

@@ -32,26 +32,29 @@ export default {
         },
     },
     computed: {
-        headingColor () {
+        headingColor() {
             return "bg-"+this.color+"" || 'bg-white'
         },
         borderColor() {
             return "focus:border-"+this.color+"" || "focus:border-blue"
-        }
+        },
+        icon() {
+            return new URL('../assets/retro/'+this.color+'.svg', import.meta.url).href
+        },
     },
 }
 </script>
 
 <template>
-    <div class="drop-zone">
-        <h1 class="p-2 text-l font-bold text-gray-600">{{heading}}</h1>
-        <form @submit="submit($event)" :class="headingColor" class="rounded-md m-2 p-2">
+    <div class="drop-zone p-4">
+        <h1 class="py-2 text-l font-bold text-gray-500"><img :src="icon" alt="" class="float-left pr-2">{{heading}}</h1>
+        <form @submit="submit($event)" :class="headingColor" class="rounded-md my-2 p-2">
             <div class="flex">
-            <input type="text" name="title" :placeholder="hint" :class="borderColor" class="flex-1 p-2 rounded-sm">
-            <input type="submit" value="Add" class="ml-2 flex-none p-2 rounded-sm bg-white text-gray-600 justify-self-end">
+            <input type="text" name="title" :placeholder="hint" :class="borderColor" class="flex-1 p-2">
+            <input type="submit" value="Add" class="ml-2 flex-none p-2 bg-white text-gray-600 justify-self-end">
             </div>
         </form>
-        <div v-for='item in items' :key='item.title' draggable="true" @dragstart="startDrag($event, item)" class="m-2 p-2 border-gray-100 border-solid border shadow-md rounded-md bg-white">
+        <div v-for='item in items' :key='item.title' draggable="true" @dragstart="startDrag($event, item)" class="my-2 p-2 shadow-md bg-white">
             <RetroCard :item='item' />
         </div>
     </div>

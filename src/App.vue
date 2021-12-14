@@ -63,7 +63,7 @@ export default {
 </script>
 
 <template>
-  <h1 class="text-3xl text-gray-500 pl-4">Retro</h1>
+  <h1 class="text-3xl text-gray-500 px-4 py-6">Retro</h1>
   <div class="grid grid-cols-3 h-full">
     <RetroColumn heading="We're happy about" :items=listOne color="green" hint="I'm glad that..." v-bind:column=1 @submit-form="addItem" />
     <RetroColumn heading="We're wondering about" :items=listTwo color="yellow" hint="I'm wondering..." v-bind:column=2 @submit-form="addItem" />

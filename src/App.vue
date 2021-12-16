@@ -8,29 +8,17 @@ import RetroColumn from './components/RetroColumn.vue'
 <script>
 
 export default {
+  created() {
+    fetch('http://localhost:8080/retrocards')
+      .then(res => res.json())
+      .then(data => {
+        this.items = data
+      })
+  },
   data() {
     return {
       items: [
-        {
-          title: 'First item',
-          id: 1,
-          column: 1,
-        },
-        {
-          title: 'Second item',
-          id: 2,
-          column: 1,
-        },
-        {
-          title: 'Third item',
-          id: 3,
-          column: 2,
-        },
-        {
-          title: 'Fourth item',
-          id: 4,
-          column: 2,
-        },
+        {}
       ]
     }
   },

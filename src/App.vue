@@ -9,7 +9,7 @@ import RetroColumn from './components/RetroColumn.vue'
 
 export default {
   created() {
-    fetch('http://localhost:8080/retrocards')
+    fetch(import.meta.env.VITE_API_URL + '/retrocards')
       .then(res => res.json())
       .then(data => {
         this.items = data

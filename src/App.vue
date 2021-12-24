@@ -22,17 +22,25 @@ export default {
       ]
     }
   },
+  sockets: {
+    newCard(card) {
+      this.items.push(card)
+    }
+  },
   methods: {
       addItem (title, column) {
-        if (title.length == 0) {
-          return
-        }
-        
-        this.items.push({
-          title: title,
-          id: this.items.length + 1,
-          column: column,
+        fetch(import.meta.env.VITE_API_URL + '/retrocards', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            title,
+            column
+          })
         })
+        .then(res => res.json())
       },
   },
   computed: {

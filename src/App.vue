@@ -25,6 +25,14 @@ export default {
   sockets: {
     newCard(card) {
       this.items.push(card)
+    },
+    updateCard(card) {
+      this.items = this.items.map(item => {
+        if (item.id === card.id) {
+          return card
+        }
+        return item
+      })
     }
   },
   methods: {
@@ -45,13 +53,13 @@ export default {
   },
   computed: {
     listOne() {
-      return this.items.filter(item => item.column === 1)
+      return this.items.filter(item => item.column === 1 && item.archived === false)
     },
     listTwo() {
-      return this.items.filter(item => item.column === 2)
+      return this.items.filter(item => item.column === 2 && item.archived === false)
     },
     listThree() {
-      return this.items.filter(item => item.column === 3)
+      return this.items.filter(item => item.column === 3 && item.archived === false)
     },
   }
 }

@@ -6,6 +6,7 @@ defineProps({
     column: Number,
     method: Function,
     hint: String,
+    focused: Boolean,
 })
 
 import RetroCard from './RetroCard.vue';
@@ -35,15 +36,23 @@ export default {
                 return
             }
 
-            console.log(id)
-
             this.$emit("focus-item", id)
+        },
+        itemStyle(item) {
+            if (item.focused) {
+                return 'shadow-lg shadow-blue/50 border-2 border-blue'
+            }
+
+            if (this.focused) {
+                return 'opacity-50'
+            }
         }
     },
     computed: {
         icon() {
             return new URL('../assets/retro/'+this.color+'.svg', import.meta.url).href
         },
+        
     },
 }
 </script>
@@ -69,7 +78,7 @@ export default {
             </button>
             </div>
         </form>
-        <div v-for='item in items' :key='item.title' draggable="true" @dragstart="startDrag($event, item)" @click="focus($event, item.id)" class="my-2 p-4 shadow-md bg-white" v-bind:class="{'shadow-lg border-2 border-blue':item.focused}">
+        <div v-for='item in items' :key='item.title' draggable="true" @dragstart="startDrag($event, item)" @click="focus($event, item.id)" class="retro-item my-2 p-4 shadow-md bg-white" v-bind:class="itemStyle(item)">
             <RetroCard :item='item' />
         </div>
     </div>

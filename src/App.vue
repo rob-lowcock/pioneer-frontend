@@ -67,6 +67,46 @@ export default {
           }
         })
       },
+      isCard (evt) {
+        // Worst hack I've done in a long time
+        if (evt.target.tagName == 'path') {
+          return true
+        }
+
+        if (evt.target.classList.contains('retro-item')) {
+          return true
+        }
+
+        if (evt.target.parentNode.classList.contains('retro-item')) {
+          return true
+        }
+
+        if (evt.target.parentNode.parentNode.classList.contains('retro-item')) {
+          return true
+        }
+
+        if (evt.target.parentNode.parentNode.parentNode.classList.contains('retro-item')) {
+          return true
+        }
+
+        return false
+      },
+
+      unfocus (evt) {
+        var iscard = this.isCard(evt)
+
+        if (iscard) {
+          return
+        }
+
+        this.items = this.items.map(item => {
+            return {
+              ...item,
+              focused: false
+            }
+          }
+        )
+      },
   },
   computed: {
     listOne() {
@@ -78,16 +118,21 @@ export default {
     listThree() {
       return this.items.filter(item => item.column === 3 && item.archived === false)
     },
+    focusedItem() {
+      return this.items.find(item => item.focused === true) !== undefined
+    },
   }
 }
 
 </script>
 
 <template>
+  <div class="h-screen" @click="unfocus($event)">
   <h1 class="text-3xl text-gray-500 px-4 py-6">Retro</h1>
   <div class="grid grid-cols-3 h-full">
-    <RetroColumn heading="We're happy about" :items=listOne color="green" hint="I'm glad that..." v-bind:column=1 @submit-form="addItem" @focus-item="focus" />
-    <RetroColumn heading="We're wondering about" :items=listTwo color="yellow" hint="I'm wondering..." v-bind:column=2 @submit-form="addItem" @focus-item="focus" />
-    <RetroColumn heading="We're sad about" :items=listThree color="red" hint="I'm sad that..." v-bind:column=3 @submit-form="addItem" @focus-item="focus" />
+    <RetroColumn heading="We're happy about" :items=listOne color="green" hint="I'm glad that..." v-bind:column=1 @submit-form="addItem" @focus-item="focus" :focused=focusedItem />
+    <RetroColumn heading="We're wondering about" :items=listTwo color="yellow" hint="I'm wondering..." v-bind:column=2 @submit-form="addItem" @focus-item="focus" :focused=focusedItem />
+    <RetroColumn heading="We're sad about" :items=listThree color="red" hint="I'm sad that..." v-bind:column=3 @submit-form="addItem" @focus-item="focus" :focused=focusedItem />
+  </div>
   </div>
 </template>

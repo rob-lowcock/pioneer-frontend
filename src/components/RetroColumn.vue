@@ -30,6 +30,15 @@ export default {
             this.$emit("submit-form", form.title.value, this.column)
             form.reset()
         },
+        focus (evt, id) {
+            if (evt.target.tagName !== 'DIV') {
+                return
+            }
+
+            console.log(id)
+
+            this.$emit("focus-item", id)
+        }
     },
     computed: {
         icon() {
@@ -60,7 +69,7 @@ export default {
             </button>
             </div>
         </form>
-        <div v-for='item in items' :key='item.title' draggable="true" @dragstart="startDrag($event, item)" class="my-2 p-4 shadow-md bg-white">
+        <div v-for='item in items' :key='item.title' draggable="true" @dragstart="startDrag($event, item)" @click="focus($event, item.id)" class="my-2 p-4 shadow-md bg-white" v-bind:class="{'shadow-lg border-2 border-blue':item.focused}">
             <RetroCard :item='item' />
         </div>
     </div>

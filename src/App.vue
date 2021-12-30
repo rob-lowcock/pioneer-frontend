@@ -53,6 +53,20 @@ export default {
         })
         .then(res => res.json())
       },
+      focus (id) {
+        this.items = this.items.map(item => {
+          if (item.id === id) {
+            return {
+              ...item,
+              focused: true
+            }
+          }
+          return {
+            ...item,
+            focused: false
+          }
+        })
+      },
   },
   computed: {
     listOne() {
@@ -72,8 +86,8 @@ export default {
 <template>
   <h1 class="text-3xl text-gray-500 px-4 py-6">Retro</h1>
   <div class="grid grid-cols-3 h-full">
-    <RetroColumn heading="We're happy about" :items=listOne color="green" hint="I'm glad that..." v-bind:column=1 @submit-form="addItem" />
-    <RetroColumn heading="We're wondering about" :items=listTwo color="yellow" hint="I'm wondering..." v-bind:column=2 @submit-form="addItem" />
-    <RetroColumn heading="We're sad about" :items=listThree color="red" hint="I'm sad that..." v-bind:column=3 @submit-form="addItem" />
+    <RetroColumn heading="We're happy about" :items=listOne color="green" hint="I'm glad that..." v-bind:column=1 @submit-form="addItem" @focus-item="focus" />
+    <RetroColumn heading="We're wondering about" :items=listTwo color="yellow" hint="I'm wondering..." v-bind:column=2 @submit-form="addItem" @focus-item="focus" />
+    <RetroColumn heading="We're sad about" :items=listThree color="red" hint="I'm sad that..." v-bind:column=3 @submit-form="addItem" @focus-item="focus" />
   </div>
 </template>

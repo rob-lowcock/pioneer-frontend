@@ -29,7 +29,10 @@ export default {
     updateCard(card) {
       this.items = this.items.map(item => {
         if (item.id === card.id) {
-          return card
+          return {
+            ...item,
+            ...card
+          }
         }
         return item
       })

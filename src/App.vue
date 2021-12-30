@@ -3,6 +3,7 @@ import { computed } from '@vue/reactivity'
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import RetroColumn from './components/RetroColumn.vue'
+import ArchiveButton from './components/ArchiveButton.vue'
 </script>
 
 <script>
@@ -17,9 +18,7 @@ export default {
   },
   data() {
     return {
-      items: [
-        {}
-      ]
+      items: []
     }
   },
   sockets: {
@@ -36,6 +35,32 @@ export default {
         }
         return item
       })
+    },
+    clearBoard() {
+      this.items = []
+    },
+    focusCard(id) {
+      this.items = this.items.map(item => {
+        if (item.id === id) {
+          return {
+            ...item,
+            focused: true
+          }
+        }
+        return {
+          ...item,
+          focused: false
+        }
+      })
+    },
+    unfocus() {
+      this.items = this.items.map(item => {
+          return {
+            ...item,
+            focused: false
+          }
+        }
+      )
     }
   },
   methods: {
@@ -54,18 +79,7 @@ export default {
         .then(res => res.json())
       },
       focus (id) {
-        this.items = this.items.map(item => {
-          if (item.id === id) {
-            return {
-              ...item,
-              focused: true
-            }
-          }
-          return {
-            ...item,
-            focused: false
-          }
-        })
+        this.$socket.client.emit('focusCard', id)
       },
       isCard (evt) {
         // Worst hack I've done in a long time
@@ -99,13 +113,7 @@ export default {
           return
         }
 
-        this.items = this.items.map(item => {
-            return {
-              ...item,
-              focused: false
-            }
-          }
-        )
+        this.$socket.client.emit('unfocus')
       },
   },
   computed: {
@@ -128,8 +136,13 @@ export default {
 
 <template>
   <div class="h-screen" @click="unfocus($event)">
-  <h1 class="text-3xl text-gray-500 px-4 py-6">Retro</h1>
-  <div class="grid grid-cols-3 h-full">
+  <div class="px-4 py-6">
+    <div class="float-right ">
+      <ArchiveButton />
+    </div>
+    <h1 class="text-3xl text-gray-500">Retro</h1>
+  </div>
+  <div class="grid grid-cols-3 clear-both">
     <RetroColumn heading="We're happy about" :items=listOne color="green" hint="I'm glad that..." v-bind:column=1 @submit-form="addItem" @focus-item="focus" :focused=focusedItem />
     <RetroColumn heading="We're wondering about" :items=listTwo color="yellow" hint="I'm wondering..." v-bind:column=2 @submit-form="addItem" @focus-item="focus" :focused=focusedItem />
     <RetroColumn heading="We're sad about" :items=listThree color="red" hint="I'm sad that..." v-bind:column=3 @submit-form="addItem" @focus-item="focus" :focused=focusedItem />

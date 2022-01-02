@@ -31,21 +31,41 @@ export default {
             this.$emit("submit-form", form.title.value, this.column)
             form.reset()
         },
-        focus (evt, id) {
+        focus (evt, item) {
             if (evt.target.tagName !== 'DIV') {
                 return
             }
 
-            this.$emit("focus-item", id)
+            fetch(import.meta.env.VITE_API_URL + '/retrocards/' + item.id, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ...item,
+                    done: false,
+                })
+            })
+
+            this.$emit("focus-item", item.id)
         },
         itemStyle(item) {
             if (item.focused) {
-                return 'shadow-lg shadow-blue/50 border-2 border-blue'
+                return 'shadow-lg shadow-blue/50 border-2 border-blue bg-white'
+            }
+
+            var output = 'bg-white'
+
+            if (item.done) {
+                output += ' bg-gray-200 text-gray-400'
             }
 
             if (this.focused) {
-                return 'opacity-50'
+                output += ' opacity-50'
             }
+
+            return output
         }
     },
     computed: {
@@ -78,8 +98,8 @@ export default {
             </button>
             </div>
         </form>
-        <div v-for='item in items' :key='item.title' draggable="true" @dragstart="startDrag($event, item)" @click="focus($event, item.id)" class="retro-item my-2 p-4 shadow-md bg-white" v-bind:class="itemStyle(item)">
-            <RetroCard :item='item' />
+        <div v-for='item in items' :key='item.title' draggable="true" @dragstart="startDrag($event, item)" @click="focus($event, item)" class="retro-item my-2 p-4 shadow-md" v-bind:class="itemStyle(item)">
+            <RetroCard :item='item' :focused='focused' />
         </div>
     </div>
 </template>

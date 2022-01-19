@@ -51,7 +51,7 @@ export default {
         },
 
         doneClass() {
-            if (this.focused) {
+            if (this.item.focused) {
                 return "fill-gray-400 group:hover:fill-gray-500"
             }
 

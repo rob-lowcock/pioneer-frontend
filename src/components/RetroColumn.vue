@@ -70,7 +70,17 @@ export default {
     },
     computed: {
         icon() {
-            return new URL('../assets/retro/'+this.color+'.svg', import.meta.url).href
+            // This is a horrible hack, but necessary because Vite doesn't support dynamic static image URLs
+            switch(this.color) {
+                case 'red':
+                    return new URL('../assets/retro/red.svg', import.meta.url).href
+                case 'green':
+                    return new URL('../assets/retro/green.svg', import.meta.url).href
+                case 'yellow':
+                    return new URL('../assets/retro/yellow.svg', import.meta.url).href
+                default:
+                    return ''
+            }
         },
         
     },

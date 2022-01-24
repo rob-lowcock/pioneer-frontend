@@ -3,7 +3,6 @@ node_modules
 dist
 dist-ssr
 *.local
-.env
 
 # Created by https://www.toptal.com/developers/gitignore/api/osx,linux,windows,git,vue,visualstudiocode,intellij
 # Edit at https://www.toptal.com/developers/gitignore?templates=osx,linux,windows,git,vue,visualstudiocode,intellij

@@ -6,13 +6,12 @@ import RetroApp from './components/RetroApp.vue';
 </script>
 
 <script>
-
 export default {
 }
-
-
 </script>
 
 <template>
-    <RetroApp />
+    <!-- <p><router-link to="/">Go to home</router-link></p>
+    <p><router-link to="/about">Go to about</router-link></p> -->
+    <router-view></router-view>
 </template>

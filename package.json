@@ -9,6 +9,7 @@
   "dependencies": {
     "socket.io-client": "^4.4.0",
     "vue": "^3.2.16",
+    "vue-router": "^4.0.12",
     "vue-socket.io-extended": "^5.0.0-alpha.5"
   },
   "devDependencies": {

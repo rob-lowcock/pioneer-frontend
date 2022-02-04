@@ -7,7 +7,7 @@ import VueSocketIOExt from 'vue-socket.io-extended';
 import { io } from "socket.io-client";
 import { createRouter, createWebHistory } from 'vue-router';
 
-export const SocketInstance = io(import.meta.env.VITE_WEBSOCKET_URL);
+export const SocketInstance = io(import.meta.env.VITE_API_URL);
 
 const About = { template: '<div>About</div>' };
 

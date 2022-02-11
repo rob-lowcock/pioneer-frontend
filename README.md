@@ -1,5 +1,7 @@
 # Pioneer Frontend
 
+![Screenshot](https://rob-lowcock.github.io/pioneer/site/screenshot.png)
+
 Pioneer is a web app that creates a reusable retro board for team retrospectives.
 
 This is the frontend application. The required backend server (which provides both a RESTful API and a websocket server) can be found at [github.com/rob-lowcock/pioneer-node](https://github.com/rob-lowcock/pioneer-node).
